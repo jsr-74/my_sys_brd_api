@@ -183,15 +183,17 @@ def send_mail():
 #     "message": f"OTP sent successfully to {receiver_email}"
 # }), 200
     try:
-        # with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-            smtp = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
-            smtp.starttls()
-            smtp.login(SENDER_EMAIL, APP_PASSWORD)
-            smtp.send_message(msg)
-        return jsonify({
-            "status_code": "200",
-            "message": f"OTP sent successfully to {receiver_email}"
-        }), 200
+        smtp = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+    
+        smtp.login(SENDER_EMAIL, APP_PASSWORD)
+        smtp.send_message(msg)
+        smtp.quit()
+
+        return jsonify({"status": "success"}), 200
+
     except Exception as e:
         return jsonify({
             "status_code": "500",
