@@ -174,22 +174,27 @@ def send_mail():
 </html>
 """, subtype="html")                             # HTML email content with OTP
     # Send Email
-    # with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as smtp:
-        smtp.login(SENDER_EMAIL, APP_PASSWORD)
-        smtp.send_message(msg)
-# try:
-#     with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as smtp:
+#     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
 #         smtp.login(SENDER_EMAIL, APP_PASSWORD)
 #         smtp.send_message(msg)
 
-#  except Exception as e:
-#     return jsonify({"error": f"Mail send failed: {str(e)}"}), 500
-
-    return jsonify({
-    "status_code": "200",
-    "message": f"OTP sent successfully to {receiver_email}"
-}), 200
+#     return jsonify({
+#     "status_code": "200",
+#     "message": f"OTP sent successfully to {receiver_email}"
+# }), 200
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(SENDER_EMAIL, APP_PASSWORD)
+            smtp.send_message(msg)
+        return jsonify({
+            "status_code": "200",
+            "message": f"OTP sent successfully to {receiver_email}"
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "status_code": "500",
+            "message": f"Failed to send OTP: {str(e)}"
+        }), 500 
 
 
 if __name__ == "__main__":
