@@ -183,7 +183,9 @@ def send_mail():
 #     "message": f"OTP sent successfully to {receiver_email}"
 # }), 200
     try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        # with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
+            smtp.starttls()
             smtp.login(SENDER_EMAIL, APP_PASSWORD)
             smtp.send_message(msg)
         return jsonify({
