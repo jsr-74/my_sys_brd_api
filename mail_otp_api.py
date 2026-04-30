@@ -9,8 +9,8 @@ app = Flask(__name__)
 CORS(app)
 
 
-SENDER_EMAIL = os.getenv("SENDER_EMAIL") # Get sender email from environment variable
-APP_PASSWORD = os.getenv("EMAIL_PASS")   # Get app password from environment variable
+SENDER_EMAIL = 'jsrnbank.nlass74@gmail.com' #os.getenv("SENDER_EMAIL") # Get sender email from environment variable
+APP_PASSWORD = 'ewrfqrynaeyqazfr'# os.getenv("EMAIL_PASS")   # Get app password from environment variable
 
 if not SENDER_EMAIL or not APP_PASSWORD:
     raise ValueError("Environment variables not set")
