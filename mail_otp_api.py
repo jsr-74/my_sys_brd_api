@@ -174,31 +174,31 @@ def send_mail():
 </html>
 """, subtype="html")                             # HTML email content with OTP
     # Send Email
-#     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-#         smtp.login(SENDER_EMAIL, APP_PASSWORD)
-#         smtp.send_message(msg)
-
-#     return jsonify({
-#     "status_code": "200",
-#     "message": f"OTP sent successfully to {receiver_email}"
-# }), 200
-    try:
-        smtp = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.ehlo()
-    
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(SENDER_EMAIL, APP_PASSWORD)
         smtp.send_message(msg)
-        smtp.quit()
 
-        return jsonify({"status": "success"}), 200
+    return jsonify({
+    "status_code": "200",
+    "message": f"OTP sent successfully to {receiver_email}"
+}), 200
+    # try:
+    #     smtp = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
+    #     smtp.ehlo()
+    #     smtp.starttls()
+    #     smtp.ehlo()
+    
+    #     smtp.login(SENDER_EMAIL, APP_PASSWORD)
+    #     smtp.send_message(msg)
+    #     smtp.quit()
 
-    except Exception as e:
-        return jsonify({
-            "status_code": "500",
-            "message": f"Failed to send OTP: {str(e)}"
-        }), 500 
+    #     return jsonify({"status": "success"}), 200
+
+    # except Exception as e:
+    #     return jsonify({
+    #         "status_code": "500",
+    #         "message": f"Failed to send OTP: {str(e)}"
+    #     }), 500 
 
 
 if __name__ == "__main__":
