@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
 import smtplib
 from email.message import EmailMessage
+from flask_cors import CORS
 import base64
 import os
 import re
 app = Flask(__name__)
+CORS(app)
 
 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL") # Get sender email from environment variable
